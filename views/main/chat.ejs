@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/button.css" />
+    <link rel="stylesheet" href="/css/chat.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <div class="button">
+      <a href="/" class="buttonlink">
+        <span class="button__mask"></span>
+        <span class="button__text">Left room</span>
+        <span class="button__text button__text--bis">Left room</span></a
+      >
+    </div>
+    <h1 id="roomname" class="roomname"></h1>
+    <h1 class="userstitle">Users:</h1>
+    <ul id="users" class="userslist"></ul>
+    <ul class="chat-thread" id="chat-messages"></ul>
+    <form class="chat-window" id="chat-form">
+      <input
+        class="chat-window-message"
+        name="chat-window-message"
+        type="text"
+        autocomplete="off"
+        autofocus
+        id="chat-input"
+      />
+    </form>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"
+      integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
