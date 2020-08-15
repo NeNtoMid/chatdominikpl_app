@@ -17,6 +17,12 @@ const mongoose = require('mongoose');
 
 const colors = require('colors');
 
+const dotenv = require('dotenv');
+
+dotenv.config({
+  path: `./config/config.env`,
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                 OWN MODULES                                */
 /* -------------------------------------------------------------------------- */
