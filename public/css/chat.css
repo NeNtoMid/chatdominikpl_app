@@ -2,6 +2,7 @@
 body {
   padding: 0;
   margin: 0;
+
   background: -moz-linear-gradient(
     -45deg,
     #183850 0,
@@ -199,5 +200,112 @@ body {
   }
   100% {
     margin-right: 0;
+  }
+}
+
+.article-mobile {
+  display: none;
+}
+
+.article__hamburger:first-child {
+  margin-top: 3rem;
+}
+.article__hamburger {
+  margin-left: 6rem;
+  margin-top: 1rem;
+  height: 0.5rem;
+  width: 5rem;
+  background-color: white;
+}
+
+.article__menu {
+  cursor: pointer;
+}
+
+.article__list {
+  display: none;
+  background-color: #22254c;
+  width: 50vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 100;
+  list-style-type: none;
+}
+
+.article__limark {
+  font-size: 3rem;
+  color: white;
+  text-align: right;
+  position: absolute;
+  top: 1rem;
+  left: 31rem;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .chat-thread {
+    margin: 24px auto 0 365px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .chat-thread {
+    margin: 24px auto 0 294px;
+  }
+}
+
+@media (max-width: 800px) {
+  .article-mobile {
+    display: block;
+  }
+
+  .article {
+    display: none;
+  }
+
+  .chat-thread {
+    margin: 24px auto 0 47px;
+  }
+}
+
+@media (min-width: 690px) and (max-width: 800px) {
+  .chat-thread {
+    margin: 25px auto 0px 238px;
+  }
+}
+
+@media (min-width: 694px) and (max-width: 758px) {
+  .chat-thread {
+    margin: 69px auto 0px 66px;
+  }
+}
+
+@media (max-width: 766px) {
+  .chat-thread {
+    margin: 77px auto 0px 69px;
+  }
+}
+
+@media (max-width: 736px) {
+  .article__limark {
+    left: 29rem;
+  }
+}
+
+@media (max-width: 702px) {
+  .article__limark {
+    left: 27rem;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 610px) {
+  .article__limark {
+    left: 22rem;
+  }
+}
+
+@media (min-width: 611px) and (max-width: 658px) {
+  .article__limark {
+    left: 25rem;
   }
 }

@@ -1,42 +1,40 @@
-/****************************/
-/******* CORE MODULES *******/
-/****************************/
+/* -------------------------------------------------------------------------- */
+/*                                CORE MODULES                                */
+/* -------------------------------------------------------------------------- */
 
 const http = require('http');
 
 const path = require('path');
 
-/***************************/
-/******* NPM MODULES *******/
-/***************************/
+/* -------------------------------------------------------------------------- */
+/*                                 NPM MODULES                                */
+/* -------------------------------------------------------------------------- */
 
 const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
 
-/***************************/
-/******* OWN MODULES *******/
-/***************************/
+const colors = require('colors');
+
+/* -------------------------------------------------------------------------- */
+/*                                 OWN MODULES                                */
+/* -------------------------------------------------------------------------- */
 
 const User = require('./models/userM');
 
-const msgFormater = require('./utils/message');
+const msgFormater = require('./utils/createMessage');
 
-const userCreator = require('./utils/user').createUser;
+const userCreator = require('./utils/user');
 
 const mainRoutes = require('./routes/mainR');
 
-/****************************/
-/******* ENGINE SETUP *******/
-/****************************/
+/* ------------------------------ Engine Setup ------------------------------ */
 
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
-/****************************/
-/******* MIDDLEWARE *********/
-/****************************/
+/* ------------------------------- Middleware ------------------------------- */
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,76 +42,101 @@ app.use(express.static(path.join(__dirname, 'images')));
 
 app.use(mainRoutes);
 
-/*************************/
-/******* SERVER *********/
-/************************/
+/* --------------------------------- Server --------------------------------- */
 
 mongoose
-  .connect(process.env.MONGO)
+  .connect(process.env.MONGO_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     const server = http.createServer(app);
 
     const io = require('socket.io')(server);
 
-    server.listen(process.env.PORT || 5000, () => {
-      console.log(`Server created successfully!`);
+    server.listen(process.env.PORT || 3000, () => {
+      console.log('Connected to Database!'.green);
+
+      console.log('Connected to Server!'.green);
     });
 
     io.on('connection', (socket) => {
+      console.log('socket:'.red, socket);
+
+      console.log('Connected socket'.green.inverse);
       let user;
-      //When user joins a room
-      socket.on(`joinRoom`, async ({ username, room }) => {
-        if (!(await User.findOne({ username: username }))) {
+
+      socket.on('joinRoom', async ({ username, room }) => {
+        if (!(await User.findOne({ username }))) {
           user = await userCreator(username, room);
         }
 
         socket.join(room);
-        //Welcome user
+
         socket.emit(
-          `message`,
-          msgFormater(`admin`, `Welcome to the Discord ;)`)
+          'message',
+          msgFormater(
+            'admin',
+            "Welcome to the Dominic's Chat ;)"
+          )
         );
 
-        const users = await User.find({ room: room });
+        const users = await User.find({ room });
 
-        io.to(room).emit(`roomUsers`, { room, users });
+        io.to(room).emit('roomUsers', { room, users });
 
         socket
           .to(room)
           .emit(
             `message`,
-            msgFormater(`admin`, `${username} has joined to chat!`)
+            msgFormater(
+              `admin`,
+              `${username} says hello from chat!`
+            )
           );
 
         socket.on(`add-message`, (message) => {
           socket.broadcast
             .to(room)
-            .emit(`message`, msgFormater(username, message));
-          socket.emit(`my-message`, msgFormater(username, message));
+            .emit(
+              `message`,
+              msgFormater(username, message)
+            );
+          socket.emit(
+            `my-message`,
+            msgFormater(username, message)
+          );
         });
       });
 
       socket.on(`disconnect`, async () => {
-        //Delete user from database
-
         if (user) {
           await User.findByIdAndDelete(user._id);
-          //Goodbye a user
 
           socket
             .to(user.room)
             .emit(
               `message`,
-              msgFormater(`admin`, `${user.username} says goodbye from chat!`)
+              msgFormater(
+                `admin`,
+                `${user.username} says goodbye from chat!`
+              )
             );
 
-          const users = await User.find({ room: user.room });
+          const users = await User.find({
+            room: user.room,
+          });
 
-          io.to(user.room).emit(`roomUsers`, { room: user.room, users });
+          io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users,
+          });
         }
-
-        //Uptade users list on chat room
       });
     });
   })
   .catch((err) => console.log('From there' + err));
+
+/* ----------------------------- Some reference ----------------------------- */

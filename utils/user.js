@@ -6,6 +6,4 @@ const createUser = async (username, room) => {
   return await user.save();
 };
 
-module.exports = {
-  createUser,
-};
+module.exports = createUser;
