@@ -16,10 +16,10 @@
     "helmet": "^3.23.3",
     "moment": "^2.27.0",
     "mongoose": "^5.9.24",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "colors": "^1.4.0"
   },
   "devDependencies": {
-    "colors": "^1.4.0",
     "nodemon": "^2.0.4"
   }
 }
