@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js MONGO_URI=mongodb+srv://NeNtoMid:89070701057Aa@database-ns317.mongodb.net/chat?retryWrites=true&w=majority PORT=3000",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,6 +19,7 @@
     "mobile-device-detect": "^0.4.3",
     "moment": "^2.27.0",
     "mongoose": "^5.9.24",
+    "requirejs": "^2.3.6",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

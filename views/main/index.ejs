@@ -6,32 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= pageTitle %></title>
   <link rel="stylesheet" href="/css/index.css">
+
 </head>
 
 <body>
   <main class='main'>
     <div class='main__img'>
 
-      <h1 class='main__title'>
+      <h1 class='main__title tracking-in-expand-fwd-top'>
         Welcome to ChatCord!
       </h1>
       <article class='main__article'>
         <form action='/chat'>
 
           <section>
-            <label class='section__label'>
+            <label class='section__label focus-in-contract'>
               Nickname
             </label>
             <input type='text' name='username' id='chat-input' class='section__input' required />
           </section>
           <section>
-            <label class='section__label'>
+            <label class='section__label focus-in-contract'>
               Room
             </label>
             <input type='text' name='room' id='room-input' class='section__input' required />
           </section>
           <button type="submit" class='main__button'>
-            <h1 class='main__button__title'>Join Room</h1>
+            <h1 class='main__button__title focus-in-contract hvr-shutter-out-vertical'>Join Room</h1>
           </button>
 
 
@@ -41,6 +42,8 @@
     </div>
   </main>
   <script src="/socket.io/socket.io.js"></script>
+
+
   <script src="/js/main.js"></script>
 </body>
 
