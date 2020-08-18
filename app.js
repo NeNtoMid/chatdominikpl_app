@@ -17,11 +17,10 @@ const mongoose = require('mongoose');
 
 const colors = require('colors');
 
-const dotenv = require('dotenv');
+const helmet = require('helmet');
 
-dotenv.config({
-  path: `./config/config.env`,
-});
+const compression = require('compression');
+
 
 /* -------------------------------------------------------------------------- */
 /*                                 OWN MODULES                                */
@@ -41,6 +40,10 @@ app.set('views', 'views');
 app.set('view engine', 'ejs');
 
 /* ------------------------------- Middleware ------------------------------- */
+
+app.use(helmet());
+
+app.use(compression());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
