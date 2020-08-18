@@ -69,13 +69,15 @@ mongoose
     });
 
     io.on('connection', (socket) => {
-      console.log('socket:'.red, socket);
-
       console.log('Connected socket'.green.inverse);
       let user;
 
       socket.on('joinRoom', async ({ username, room }) => {
-        if (!(await User.findOne({ username }))) {
+        const foundUser = await User.findOne({
+          username,
+          room,
+        });
+        if (!foundUser) {
           user = await userCreator(username, room);
         }
 
@@ -84,7 +86,7 @@ mongoose
         socket.emit(
           'message',
           msgFormater(
-            'admin',
+            'Admin',
             "Welcome to the Dominic's Chat ;)"
           )
         );
@@ -98,7 +100,7 @@ mongoose
           .emit(
             `message`,
             msgFormater(
-              `admin`,
+              `Admin`,
               `${username} says hello from chat!`
             )
           );
@@ -117,7 +119,7 @@ mongoose
         });
       });
 
-      socket.on(`disconnect`, async () => {
+      socket.on('disconnect', async () => {
         if (user) {
           await User.findByIdAndDelete(user._id);
 
@@ -126,7 +128,7 @@ mongoose
             .emit(
               `message`,
               msgFormater(
-                `admin`,
+                `Admin`,
                 `${user.username} says goodbye from chat!`
               )
             );
