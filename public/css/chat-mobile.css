@@ -256,6 +256,19 @@ body {
   }
 }
 
+@media (min-width: 300px) and (min-height: 300px) {
+  .article__menu {
+    cursor: pointer;
+
+    margin-left: -10%;
+  }
+
+  .chat-thread {
+    margin: 24px auto 0 29px;
+    height: 40rem;
+  }
+}
+
 @media (min-width: 1000px) {
   .article-mobile {
     display: block;
