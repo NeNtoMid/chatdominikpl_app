@@ -5,6 +5,12 @@ const width =
   window.innerWidth > 0 ? window.innerWidth : screen.width;
 console.log('width:', width);
 
+const height =
+  window.innerHeight > 0
+    ? window.innerHeight
+    : screen.height;
+console.log('height:', height);
+
 let htmlCode = null;
 
 let whichStylesheet = 'pc';
