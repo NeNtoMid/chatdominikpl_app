@@ -261,6 +261,7 @@ body {
     cursor: pointer;
 
     margin-left: -10%;
+    margin-top: 0rem;
   }
 
   .chat-thread {
